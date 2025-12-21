@@ -3,357 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wedding of Sarid & Amanda</title>
+    <title>DEBUG MODE - The Wedding</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        /* --- RESET & GLOBAL --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background-color: #fdfbf7; color: #444; overflow-x: hidden; }
-        h1, h2, h3 { font-family: 'Great Vibes', cursive; color: #d4af37; } 
-        p { line-height: 1.6; }
-        img { max-width: 100%; }
-
-        /* --- TOMBOL MUSIK --- */
-        .music-btn {
-            position: fixed; bottom: 20px; right: 20px; z-index: 999;
-            background: #d4af37; color: white; border-radius: 50%;
-            width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;
-            border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer;
-            animation: spin 3s linear infinite;
+        body { font-family: 'Poppins', sans-serif; background: #fdfbf7; color: #444; overflow-x: hidden; margin: 0; }
+        
+        /* --- ALAT TES MUSIK (SUPAYA KELIHATAN) --- */
+        .debug-audio-player {
+            position: fixed; 
+            top: 20px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            z-index: 9999;
+            background: red; 
+            padding: 10px; 
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+            color: white;
+            font-weight: bold;
         }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* --- COVER UTAMA --- */
         #cover {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover; background-position: center;
+            background: #222;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 1000; text-align: center; color: white; transition: 0.8s ease-in-out;
+            z-index: 1000; text-align: center; color: white;
         }
-        #cover.hidden { transform: translateY(-100%); }
-        .btn-buka {
-            margin-top: 20px; padding: 12px 30px; background: #d4af37; color: white;
-            border: none; border-radius: 50px; font-size: 1rem; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); transition: 0.3s;
-        }
-        .btn-buka:hover { transform: scale(1.05); background: #c5a028; }
-
-        /* --- SECTIONS --- */
-        section { padding: 60px 20px; text-align: center; overflow: hidden; }
+        #cover.hidden { display: none; }
         
-        /* HERO */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://images.unsplash.com/photo-1511285560982-1351cdeb9821?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        .btn-buka {
+            margin-top: 20px; padding: 15px 40px; background: #d4af37; color: white;
+            border: none; border-radius: 50px; font-size: 1.2rem; cursor: pointer;
         }
-        .hero h1 { font-size: 4rem; margin-bottom: 10px; line-height: 1.2; }
-
-        /* MEMPELAI */
-        .couple-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
-        .groom, .bride { flex: 1; min-width: 300px; max-width: 400px; }
-        .photo-frame {
-            width: 180px; height: 180px; border-radius: 50%; border: 5px solid #d4af37;
-            margin: 0 auto 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* ACARA & MAPS */
-        .event-card {
-            background: white; padding: 30px; border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin: 20px auto; max-width: 500px;
-            border-bottom: 5px solid #d4af37;
-        }
-        .btn-map {
-            display: inline-block; margin-top: 15px; padding: 8px 20px;
-            background: #fff; border: 1px solid #d4af37; color: #d4af37;
-            text-decoration: none; border-radius: 20px; transition: 0.3s;
-        }
-        .btn-map:hover { background: #d4af37; color: white; }
-
-        /* GALERI FOTO */
-        .gallery-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px; max-width: 800px; margin: 30px auto;
-        }
-        .gallery-item img { width: 100%; border-radius: 10px; transition: 0.3s; }
-        .gallery-item img:hover { transform: scale(1.02); }
-
-        /* AMPLOP DIGITAL */
-        .bank-card {
-            background: linear-gradient(45deg, #d4af37, #f3e5ab);
-            padding: 20px; border-radius: 15px; max-width: 400px; margin: 20px auto;
-            color: white; text-align: left; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-        }
-        .copy-btn {
-            background: white; color: #d4af37; border: none; padding: 5px 15px;
-            border-radius: 5px; cursor: pointer; font-size: 0.8rem; margin-top: 10px;
-        }
-
-        /* GUEST BOOK */
-        .guestbook-form {
-            max-width: 500px; margin: 0 auto; background: white; padding: 20px;
-            border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .guestbook-form input, .guestbook-form select, .guestbook-form textarea {
-            width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px;
-        }
-        .btn-kirim {
-            background: #d4af37; color: white; border: none; padding: 10px 30px;
-            border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold;
-        }
-        .wishes-container {
-            max-width: 500px; margin: 20px auto; text-align: left;
-            max-height: 400px; overflow-y: auto;
-        }
-        .wish-card {
-            background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px;
-            border-left: 4px solid #d4af37; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .wish-name { font-weight: bold; color: #d4af37; }
-        .wish-status { font-size: 0.8rem; padding: 2px 8px; border-radius: 10px; margin-left: 10px; }
-        .status-hadir { background: #d1fae5; color: #065f46; }
-        .status-tidak { background: #fee2e2; color: #991b1b; }
-
-        /* COUNTDOWN & RSVP */
-        .countdown { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
-        .time-box { background: #d4af37; color: white; padding: 10px; border-radius: 8px; min-width: 70px; }
-        .time-box span { font-size: 1.5rem; font-weight: bold; display: block; }
-        .rsvp-btn {
-            background: #25D366; color: white; padding: 12px 30px; border-radius: 50px;
-            text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; gap: 10px;
-            margin-top: 20px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-        }
-
-        footer { background: #222; color: #888; padding: 20px; font-size: 0.8rem; }
-        @media (max-width: 768px) { .hero h1 { font-size: 3rem; } }
+        .text-info { margin-top: 20px; font-size: 0.9rem; color: yellow; }
     </style>
 </head>
 <body>
 
-    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
-        <i class="fas fa-music"></i>
-    </button>
-    
-    <audio id="bgMusic" loop>
-        <source src="musik.mp3" type="audio/mp3">
-        <source src="https://ia800404.us.archive.org/30/items/CanonInD_201806/Canon%20in%20D.mp3" type="audio/mp3">
-    </audio>
-
-    <div id="cover">
-        <h2 data-aos="fade-down">The Wedding of</h2>
-        <h1 style="color: white; margin: 20px 0;" data-aos="zoom-in">Sarid & Amanda</h1>
-        <p>Kepada Yth. Bapak/Ibu/Saudara/i</p>
-        <div id="nama-tamu" style="margin: 20px 0; font-weight: bold; font-size: 1.5rem; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 10px;">
-            Tamu Undangan
-        </div>
-        <button class="btn-buka" onclick="bukaUndangan()">
-            <i class="fas fa-envelope-open"></i> Buka Undangan
-        </button>
+    <div class="debug-audio-player">
+        <p>⚠️ MODE TES MUSIK ⚠️</p>
+        <p style="font-size: 0.8rem; margin-bottom: 5px;">Coba klik tombol Play (Segitiga) di bawah ini:</p>
+        
+        <audio id="bgMusic" controls style="width: 250px;">
+            <source src="musik.mp3" type="audio/mp3">
+            <source src="https://ia800404.us.archive.org/30/items/CanonInD_201806/Canon%20in%20D.mp3" type="audio/mp3">
+            Browser Anda tidak mendukung elemen audio.
+        </audio>
     </div>
 
-    <section class="hero">
-        <p data-aos="fade-up">THE WEDDING OF</p>
-        <h1 data-aos="fade-up" data-aos-delay="200">Sarid & Amanda</h1>
-        <p data-aos="fade-up" data-aos-delay="400">SABTU, 24 JANUARI 2026</p>
-    </section>
-
-    <section id="mempelai">
-        <h2 data-aos="fade-up">Mempelai</h2>
-        <p data-aos="fade-up">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan:</p>
-        <div class="couple-container">
-            <div class="groom" data-aos="fade-right">
-                <div class="photo-frame"><img src="sarid.jpg" alt="Sarid"></div>
-                <h3>Sarid Syahrinal</h3>
-                <p>Putra dari Bpk. Fulan & Ibu Fulana</p>
-                <a href="#" class="social-link"><i class="fab fa-instagram"></i> @sarid</a>
-            </div>
-            <div style="font-size: 3rem; font-family: 'Great Vibes'; color: #d4af37;">&</div>
-            <div class="bride" data-aos="fade-left">
-                <div class="photo-frame"><img src="amanda.jpg" alt="Amanda"></div>
-                <h3>Amanda</h3>
-                <p>Putri dari Bpk. Alan & Ibu Alana</p>
-                <a href="#" class="social-link"><i class="fab fa-instagram"></i> @amanda</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="story" style="background: #fff;">
-        <h2 data-aos="fade-up">Kisah Cinta Kami</h2>
-        <div class="timeline">
-            <div style="max-width: 600px; margin: 0 auto; text-align: left; padding: 20px;">
-                <div style="margin-bottom: 20px;">
-                    <h3 style="color: #d4af37;">2023 - Awal Bertemu</h3>
-                    <p>Kami pertama kali bertemu di sebuah acara komunitas digital di Bandung.</p>
-                </div>
-                <div>
-                    <h3 style="color: #d4af37;">2025 - Lamaran</h3>
-                    <p>Sarid memberanikan diri meminta restu kepada orang tua Amanda.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="acara" style="background-color: #f0f0f0;">
-        <h2 data-aos="fade-up">Rangkaian Acara</h2>
+    <div id="cover">
+        <h1>Sarid & Amanda</h1>
+        <p>TES MUSIK DULU</p>
         
-        <div class="event-card" data-aos="flip-left">
-            <h3>Akad Nikah</h3>
-            <p><i class="far fa-clock"></i> 08.00 WIB - Selesai</p>
-            <p><i class="fas fa-map-marker-alt"></i> Hotel Hilton Bandung</p>
-            <a href="https://www.google.com/maps/search/?api=1&query=Hilton+Bandung" target="_blank" class="btn-map">
-                <i class="fas fa-location-arrow"></i> Lihat Lokasi
-            </a>
-        </div>
+        <button class="btn-buka" onclick="bukaUndangan()">
+            BUKA UNDANGAN
+        </button>
 
-        <div class="event-card" data-aos="flip-right">
-            <h3>Resepsi Pernikahan</h3>
-            <p><i class="far fa-clock"></i> 11.00 WIB - Selesai</p>
-            <p><i class="fas fa-map-marker-alt"></i> Hotel Hilton Bandung</p>
-            <a href="https://www.google.com/maps/search/?api=1&query=Hilton+Bandung" target="_blank" class="btn-map">
-                <i class="fas fa-location-arrow"></i> Lihat Lokasi
-            </a>
-        </div>
+        <p class="text-info">
+            Perhatikan kotak merah di atas.<br>
+            1. Apakah durasi lagunya muncul (angka menit)?<br>
+            2. Coba klik tombol Play di kotak merah itu secara manual. Bunyi gak?
+        </p>
+    </div>
 
-        <div class="countdown" id="countdown">
-            <div class="time-box"><span id="days">00</span>Hari</div>
-            <div class="time-box"><span id="hours">00</span>Jam</div>
-            <div class="time-box"><span id="minutes">00</span>Menit</div>
-            <div class="time-box"><span id="seconds">00</span>Detik</div>
-        </div>
-    </section>
-
-    <section id="gallery">
-        <h2 data-aos="fade-up">Galeri Foto</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item" data-aos="zoom-in"><img src="foto1.jpg" alt="Foto Prewed 1"></div>
-            <div class="gallery-item" data-aos="zoom-in"><img src="foto2.jpg" alt="Foto Prewed 2"></div>
-        </div>
-    </section>
-
-    <section id="gift" style="background: #fff;">
-        <h2 data-aos="fade-up">Amplop Digital</h2>
-        <div class="bank-card" data-aos="flip-up">
-            <h3><i class="fas fa-university"></i> BANK BCA</h3>
-            <p>No. Rekening:</p>
-            <h2 id="rek-bca">1234567890</h2>
-            <p>a.n Sarid Syahrinal</p>
-            <button class="copy-btn" onclick="copyText('rek-bca')"><i class="far fa-copy"></i> Salin No. Rek</button>
-        </div>
-    </section>
-
-    <section id="guestbook" style="background-color: #fdfbf7;">
-        <h2 data-aos="fade-up">Ucapan & Doa</h2>
-        <p>Berikan ucapan dan konfirmasi kehadiran Anda</p>
-        
-        <div class="guestbook-form" data-aos="fade-up">
-            <input type="text" id="guestName" placeholder="Nama Anda" required>
-            <select id="guestStatus">
-                <option value="Hadir">Hadir</option>
-                <option value="Tidak Hadir">Tidak Hadir</option>
-                <option value="Masih Ragu">Masih Ragu</option>
-            </select>
-            <textarea id="guestMessage" rows="3" placeholder="Tulis ucapan selamat..."></textarea>
-            <button class="btn-kirim" onclick="submitWish()">Kirim Ucapan</button>
-        </div>
-
-        <div id="wishesContainer" class="wishes-container">
-            <div class="wish-card" data-aos="fade-up">
-                <div class="wish-name">Rizky Billar <span class="wish-status status-hadir">Hadir</span></div>
-                <p>Selamat ya Sarid & Amanda! Semoga samawa selamanya.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="rsvp">
-        <h2>RSVP WhatsApp</h2>
-        <p>Jika ada pertanyaan mendesak, hubungi kami:</p>
-        <a href="https://wa.me/6281234567890" class="rsvp-btn" target="_blank"><i class="fab fa-whatsapp"></i> Chat WhatsApp</a>
-    </section>
-
-    <footer>
-        <p>Created with ❤️ by SaridWeb</p>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init(); 
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const nama = urlParams.get('to');
-        if (nama) { document.getElementById('nama-tamu').innerText = nama; }
-
-        function copyText(elementId) {
-            var copyText = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(copyText);
-            alert("No. Rekening Disalin: " + copyText);
-        }
-
         function bukaUndangan() {
             document.getElementById('cover').classList.add('hidden');
-            const music = document.getElementById('bgMusic');
+            var music = document.getElementById('bgMusic');
             
-            // COBA PLAY DENGAN SUARA PENUH
-            music.volume = 1.0; 
+            // Coba Play dan Tangkap Errornya
             var playPromise = music.play();
 
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
-                    console.log("Musik Berhasil Diputar!");
+                    alert("✅ SUKSES! Musik berhasil diputar otomatis.");
                 })
                 .catch(error => {
-                    console.log("Musik dicegah oleh browser.");
+                    alert("❌ GAGAL AUTOPLAY! Error: " + error + "\n\nSolusi: Silakan klik tombol Play di kotak merah secara manual.");
                 });
             }
         }
-
-        function toggleMusic() {
-            const music = document.getElementById('bgMusic');
-            const btn = document.getElementById('musicBtn');
-            if (music.paused) {
-                music.play();
-                btn.style.animation = "spin 3s linear infinite";
-                btn.innerHTML = '<i class="fas fa-music"></i>';
-            } else {
-                music.pause();
-                btn.style.animation = "none";
-                btn.innerHTML = '<i class="fas fa-pause"></i>';
-            }
-        }
-
-        function submitWish() {
-            const name = document.getElementById('guestName').value;
-            const status = document.getElementById('guestStatus').value;
-            const msg = document.getElementById('guestMessage').value;
-            if(name === "") { alert("Isi nama dulu dong!"); return; }
-            const container = document.getElementById('wishesContainer');
-            const div = document.createElement('div');
-            div.className = 'wish-card';
-            div.setAttribute('data-aos', 'fade-up');
-            let statusClass = 'status-hadir';
-            if(status === 'Tidak Hadir') statusClass = 'status-tidak';
-            div.innerHTML = `<div class="wish-name">${name} <span class="wish-status ${statusClass}">${status}</span></div><p>${msg}</p>`;
-            container.prepend(div);
-            document.getElementById('guestName').value = '';
-            document.getElementById('guestMessage').value = '';
-            alert("Ucapan Terkirim!");
-        }
-
-        const weddingDate = new Date("Jan 24, 2026 08:00:00").getTime();
-        const x = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
-            if (distance < 0) { clearInterval(x); document.getElementById("countdown").innerHTML = "<h3>Alhamdulillah Sah!</h3>"; }
-        }, 1000);
     </script>
 </body>
 </html>
