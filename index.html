@@ -141,7 +141,6 @@
     </button>
     
     <audio id="bgMusic" loop>
-        <source src="musik.mp3" type="audio/mp3">
         <source src="https://ia800404.us.archive.org/30/items/CanonInD_201806/Canon%20in%20D.mp3" type="audio/mp3">
     </audio>
 
@@ -294,20 +293,19 @@
             alert("No. Rekening Disalin: " + copyText);
         }
 
-        // FUNGSI MUSIK (LOGIKA GANDA)
         function bukaUndangan() {
             document.getElementById('cover').classList.add('hidden');
             const music = document.getElementById('bgMusic');
             
-            // Coba play
+            // FUNGSI PLAY YANG LEBIH KUAT
             var playPromise = music.play();
 
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
-                    console.log("Musik jalan!");
+                    console.log("Musik Berhasil Diputar!");
                 })
                 .catch(error => {
-                    console.log("Browser blokir autoplay.");
+                    console.log("Musik dicegah oleh browser. Silakan klik tombol musik manual.");
                 });
             }
         }
@@ -326,7 +324,6 @@
             }
         }
 
-        // FUNGSI GUEST BOOK
         function submitWish() {
             const name = document.getElementById('guestName').value;
             const status = document.getElementById('guestStatus').value;
