@@ -229,10 +229,13 @@
     </section>
 
     <section id="gallery">
-        <h2 data-aos="fade-up">Galeri Foto</h2>
+        <h2 data-aos="fade-up">Galeri Prewedding</h2>
+        <p>Momen bahagia kami.</p>
         <div class="gallery-grid">
-            <div class="gallery-item" data-aos="zoom-in"><img src="foto1.jpg" alt="Foto Prewed 1"></div>
-            <div class="gallery-item" data-aos="zoom-in"><img src="foto2.jpg" alt="Foto Prewed 2"></div>
+            <div class="gallery-item" data-aos="zoom-in"><img src="foto1.jpg" alt="Foto 1"></div>
+            <div class="gallery-item" data-aos="zoom-in"><img src="foto2.jpg" alt="Foto 2"></div>
+            <div class="gallery-item" data-aos="zoom-in"><img src="foto3.jpg" alt="Foto 3"></div>
+            <div class="gallery-item" data-aos="zoom-in"><img src="foto4.jpg" alt="Foto 4"></div>
         </div>
     </section>
 
@@ -294,22 +297,12 @@
             alert("No. Rekening Disalin: " + copyText);
         }
 
-        // --- FUNGSI MUSIK FINAL (TANPA DEBUG) ---
         function bukaUndangan() {
             document.getElementById('cover').classList.add('hidden');
             const music = document.getElementById('bgMusic');
-            
-            // Coba Play
             var playPromise = music.play();
-
             if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    // Musik jalan lancar
-                })
-                .catch(error => {
-                    // Autoplay dicegah browser (wajar)
-                    // Tamu bisa klik tombol musik manual di pojok kanan bawah
-                });
+                playPromise.then(_ => {}).catch(error => {});
             }
         }
 
