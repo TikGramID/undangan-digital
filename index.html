@@ -69,22 +69,12 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin: 20px auto; max-width: 500px;
             border-bottom: 5px solid #d4af37;
         }
-        /* Link Map sudah diperbaiki di bawah ini */
         .btn-map {
             display: inline-block; margin-top: 15px; padding: 8px 20px;
             background: #fff; border: 1px solid #d4af37; color: #d4af37;
             text-decoration: none; border-radius: 20px; transition: 0.3s;
         }
         .btn-map:hover { background: #d4af37; color: white; }
-
-        /* LOVE STORY */
-        .timeline { max-width: 600px; margin: 40px auto; text-align: left; position: relative; border-left: 3px solid #d4af37; padding-left: 30px; }
-        .story-item { margin-bottom: 40px; position: relative; }
-        .story-item::before {
-            content: ''; position: absolute; left: -39px; top: 0; width: 15px; height: 15px;
-            background: #d4af37; border-radius: 50%;
-        }
-        .story-date { font-weight: bold; color: #d4af37; }
 
         /* GALERI FOTO */
         .gallery-grid {
@@ -195,13 +185,15 @@
     <section id="story" style="background: #fff;">
         <h2 data-aos="fade-up">Kisah Cinta Kami</h2>
         <div class="timeline">
-            <div class="story-item" data-aos="fade-up">
-                <div class="story-date">2023 - Awal Bertemu</div>
-                <p>Kami pertama kali bertemu di sebuah acara komunitas digital di Bandung.</p>
-            </div>
-            <div class="story-item" data-aos="fade-up">
-                <div class="story-date">2025 - Lamaran</div>
-                <p>Sarid memberanikan diri meminta restu kepada orang tua Amanda.</p>
+            <div style="max-width: 600px; margin: 0 auto; text-align: left; padding: 20px;">
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #d4af37;">2023 - Awal Bertemu</h3>
+                    <p>Kami pertama kali bertemu di sebuah acara komunitas digital di Bandung.</p>
+                </div>
+                <div>
+                    <h3 style="color: #d4af37;">2025 - Lamaran</h3>
+                    <p>Sarid memberanikan diri meminta restu kepada orang tua Amanda.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -301,11 +293,12 @@
             alert("No. Rekening Disalin: " + copyText);
         }
 
+        // FUNGSI MUSIK
         function bukaUndangan() {
             document.getElementById('cover').classList.add('hidden');
             const music = document.getElementById('bgMusic');
             music.play().catch(error => {
-                console.log("Autoplay dicegah browser.");
+                console.log("Autoplay dicegah browser, silakan klik tombol musik manual.");
             });
         }
 
@@ -323,6 +316,7 @@
             }
         }
 
+        // FUNGSI GUEST BOOK
         function submitWish() {
             const name = document.getElementById('guestName').value;
             const status = document.getElementById('guestStatus').value;
