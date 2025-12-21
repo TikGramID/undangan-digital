@@ -142,6 +142,7 @@
     
     <audio id="bgMusic" loop>
         <source src="musik.mp3" type="audio/mp3">
+        <source src="https://ia800404.us.archive.org/30/items/CanonInD_201806/Canon%20in%20D.mp3" type="audio/mp3">
     </audio>
 
     <div id="cover">
@@ -205,7 +206,7 @@
             <h3>Akad Nikah</h3>
             <p><i class="far fa-clock"></i> 08.00 WIB - Selesai</p>
             <p><i class="fas fa-map-marker-alt"></i> Hotel Hilton Bandung</p>
-            <a href="https://www.google.com/maps/search/Hilton+Bandung" target="_blank" class="btn-map">
+            <a href="https://www.google.com/maps/search/?api=1&query=Hilton+Bandung" target="_blank" class="btn-map">
                 <i class="fas fa-location-arrow"></i> Lihat Lokasi
             </a>
         </div>
@@ -214,7 +215,7 @@
             <h3>Resepsi Pernikahan</h3>
             <p><i class="far fa-clock"></i> 11.00 WIB - Selesai</p>
             <p><i class="fas fa-map-marker-alt"></i> Hotel Hilton Bandung</p>
-            <a href="https://www.google.com/maps/search/Hilton+Bandung" target="_blank" class="btn-map">
+            <a href="https://www.google.com/maps/search/?api=1&query=Hilton+Bandung" target="_blank" class="btn-map">
                 <i class="fas fa-location-arrow"></i> Lihat Lokasi
             </a>
         </div>
@@ -293,13 +294,22 @@
             alert("No. Rekening Disalin: " + copyText);
         }
 
-        // FUNGSI MUSIK
+        // FUNGSI MUSIK (LOGIKA GANDA)
         function bukaUndangan() {
             document.getElementById('cover').classList.add('hidden');
             const music = document.getElementById('bgMusic');
-            music.play().catch(error => {
-                console.log("Autoplay dicegah browser, silakan klik tombol musik manual.");
-            });
+            
+            // Coba play
+            var playPromise = music.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    console.log("Musik jalan!");
+                })
+                .catch(error => {
+                    console.log("Browser blokir autoplay.");
+                });
+            }
         }
 
         function toggleMusic() {
