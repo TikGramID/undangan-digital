@@ -141,6 +141,7 @@
     </button>
     
     <audio id="bgMusic" loop>
+        <source src="musik.mp3" type="audio/mp3">
         <source src="https://ia800404.us.archive.org/30/items/CanonInD_201806/Canon%20in%20D.mp3" type="audio/mp3">
     </audio>
 
@@ -297,7 +298,8 @@
             document.getElementById('cover').classList.add('hidden');
             const music = document.getElementById('bgMusic');
             
-            // FUNGSI PLAY YANG LEBIH KUAT
+            // COBA PLAY DENGAN SUARA PENUH
+            music.volume = 1.0; 
             var playPromise = music.play();
 
             if (playPromise !== undefined) {
@@ -305,7 +307,7 @@
                     console.log("Musik Berhasil Diputar!");
                 })
                 .catch(error => {
-                    console.log("Musik dicegah oleh browser. Silakan klik tombol musik manual.");
+                    console.log("Musik dicegah oleh browser.");
                 });
             }
         }
